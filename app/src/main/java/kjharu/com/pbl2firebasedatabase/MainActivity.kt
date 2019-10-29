@@ -9,6 +9,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
+import android.text.method.TextKeyListener.clear
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,15 +39,42 @@ class MainActivity : AppCompatActivity() {
 
         listView.adapter = adapter
 
-        listView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+        /*listView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
 
-        }
+        }*/
 
         searchbtn.setOnClickListener{
             val searchedittext = findViewById<EditText>(R.id.searchEdittext)
-            searchText =searchedittext.text.toString()
-            Toast.makeText(this,searchText,Toast.LENGTH_SHORT).show()
+            searchText = searchedittext.text.toString()
+            //Toast.makeText(this,searchText,Toast.LENGTH_SHORT).show()
+
+            //입력된 TextView의 내용을 토대로 database에서 찾는 쿼리 작성
+            val query = database.child("")
+                .orderByChild("name").equalTo("*" + searchText + "*").limitToFirst(10);
+            query.addListenerForSingleValueEvent(valueEventListener);
+
+            val selectedProduct = if (arraylist == null) {
+                //검색한 단어와 일치하는 상품이 없을 때
+            } else { //상품 있을 때
+            }
         }
+    }
+
+    var valueEventListener: ValueEventListener = object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            arraylist.clear()
+            if (dataSnapshot.exists()) {
+                for (snapshot in dataSnapshot.children) {
+                    val goods = snapshot.getValue(Goods::class.java!!)
+                    arraylist.add(goods)
+
+                }
+                //arraylist.notifyDataSetChanged()
+            }
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {}
+
     }
 
     override fun onStart() {
@@ -59,11 +89,13 @@ class MainActivity : AppCompatActivity() {
                     val productkey = productData.key
                     val productCategory = productData.child("category").getValue().toString()
                     val productPrice = productData.child("price").getValue().toString().toInt()
+                    //@내가 추가한 콛으@
+                    val productName = productData.child("product_name").getValue().toString()
 
                     Toast.makeText(this@MainActivity,productCategory+", "+productPrice,Toast.LENGTH_SHORT).show()
                     if(productkey!=null) {
                         productkeylist.add(productkey)
-                        val goods = Goods(productkey,productCategory,productPrice)
+                        val goods = Goods(productkey,productCategory,productPrice, productName)
                         arraylist.add(goods)
                     }
                 }
