@@ -8,35 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:689729847851:android:1e22f1937d86029306606e",
-        "android_client_info": {
-          "package_name": "kjharu.com.pbl2_firebasedatabase"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "689729847851-l5g5d27hg4q746gl1i6et6mo01cmmv11.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyApkNbKvE9MDDtK8WB5VoysEyz262ntjLo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "689729847851-l5g5d27hg4q746gl1i6et6mo01cmmv11.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:689729847851:android:008e2b89c4ce159a06606e",
         "android_client_info": {
           "package_name": "kjharu.com.pbl2firebasedatabase"
