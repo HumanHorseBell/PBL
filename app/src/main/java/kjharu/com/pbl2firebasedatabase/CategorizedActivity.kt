@@ -48,7 +48,7 @@ class CategorizedActivity : AppCompatActivity() {
 
         itemList.onItemClickListener = AdapterView.OnItemClickListener{ parent, view, position, id ->
             val nextIntent = Intent(this, DetailActivity::class.java)
-            nextIntent.putExtra("category", items.get(position).goodsNo)
+            nextIntent.putExtra("goodsNo", items.get(position).goodsNo)
             startActivity(nextIntent)
         }
     }

@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Read from the database
-        database.addValueEventListener(object : ValueEventListener {
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for (productData in dataSnapshot.children) {
@@ -63,6 +63,8 @@ class MainActivity : AppCompatActivity() {
                         productkeylist.add(productName)
                         val goods = Goods(productkey,productName)
                         arraylist.add(goods)
+                        adapter.notifyDataSetChanged()
+                        adapter.notifyDataSetInvalidated()
                     }
                 }
 

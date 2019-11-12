@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@android:color/black" />
 
     <ImageView
         android:id="@+id/imageViewGoods"
@@ -24,26 +25,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/textViewPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/textViewSort"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/textViewExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@android:color/black"/>
 </LinearLayout>
