@@ -3,6 +3,7 @@ package kjharu.com.pbl2firebasedatabase
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import com.google.firebase.database.DatabaseError
@@ -38,9 +39,9 @@ class MainActivity : AppCompatActivity() {
         listView.adapter = adapter
 
         listView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            /*val Intent = Intent(this, DetailActivity::class.java)
+            val Intent = Intent(this, DetailActivity::class.java)
             Intent.putExtra("goodsNo", arraylist.get(position)?.goodsNo)
-            startActivity(Intent)*/
+            startActivity(Intent)
         }
 
         searchbtn.setOnClickListener{
