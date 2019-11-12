@@ -46,10 +46,40 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent)
         }
 
-        searchbtn.setOnClickListener{
+        var valueEventListener: ValueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                adapter.clear()
+                for (productData in dataSnapshot.children) {
+                    val productkey = productData.key
+                    val productName = productData.child("name").value.toString()
+
+                    if (productkey != null) {
+                        productkeylist.add(productName)
+                        val goods = Goods(productkey, productName)
+                        arraylist.add(goods)
+                    }
+                    else {
+                        Toast.makeText(this@MainActivity, "검색하신 상품이 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    adapter.notifyDataSetChanged()
+                    adapter.notifyDataSetInvalidated()
+                }
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+
+        }
+
+        searchbtn.setOnClickListener {
             val searchedittext = findViewById<EditText>(R.id.searchEdittext)
-            searchText =searchedittext.text.toString()
-            Toast.makeText(this,searchText,Toast.LENGTH_SHORT).show()
+            searchText = searchedittext.text.toString()
+            //val query = database.orderByChild("name").equalTo(searchText).limitToFirst(5);
+            val query = database.orderByChild("name").startAt(searchText).endAt(searchText + "\uF8FF").limitToFirst(5)
+            query.addListenerForSingleValueEvent(valueEventListener);
+            if(searchText == "") {
+               database.addListenerForSingleValueEvent(valueEventListener)
+            }
         }
 
         // Read from the database
