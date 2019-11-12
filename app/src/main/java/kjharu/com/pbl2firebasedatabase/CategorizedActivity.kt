@@ -1,8 +1,11 @@
 package kjharu.com.pbl2firebasedatabase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
 import android.widget.ListView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -11,7 +14,7 @@ import com.google.firebase.database.ValueEventListener
 
 class CategorizedActivity : AppCompatActivity() {
     var items = ArrayList<Goods>()
-    lateinit var adapter:ArrayAdapter<Goods>
+    lateinit var adapter: BaseAdapter
     lateinit var itemList:ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +24,8 @@ class CategorizedActivity : AppCompatActivity() {
         val category = intent.getStringExtra("category")
         val productDatabase = FirebaseDatabase.getInstance().reference.child("product")
 
-        adapter = ArrayAdapter<Goods>(this, android.R.layout.simple_list_item_1, items);
-        itemList = findViewById(R.id.itemList)
+        adapter = GoodsAdapter(this, items)
+        itemList = findViewById<ListView>(R.id.itemList)
         itemList.adapter = adapter
 
         val singleListener = object : ValueEventListener {
@@ -42,5 +45,11 @@ class CategorizedActivity : AppCompatActivity() {
         }
 
         productDatabase.addListenerForSingleValueEvent(singleListener)
+
+        itemList.onItemClickListener = AdapterView.OnItemClickListener{ parent, view, position, id ->
+            /*val nextIntent = Intent(this, DetailActivity::class.java)
+            nextIntent.putExtra("category", items.get(position).goodsNo)
+            startActivity(nextIntent)*/
+        }
     }
 }

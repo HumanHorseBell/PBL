@@ -1,5 +1,6 @@
 package kjharu.com.pbl2firebasedatabase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -37,9 +38,9 @@ class MainActivity : AppCompatActivity() {
         listView.adapter = adapter
 
         listView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val Intent = Intent(this, DetailActivity::class.java)
+            /*val Intent = Intent(this, DetailActivity::class.java)
             Intent.putExtra("goodsNo", arraylist.get(position)?.goodsNo)
-            startActivity(Intent)
+            startActivity(Intent)*/
         }
 
         searchbtn.setOnClickListener{
