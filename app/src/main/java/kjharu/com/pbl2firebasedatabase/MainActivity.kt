@@ -74,11 +74,14 @@ class MainActivity : AppCompatActivity() {
         searchbtn.setOnClickListener {
             val searchedittext = findViewById<EditText>(R.id.searchEdittext)
             searchText = searchedittext.text.toString()
-            //val query = database.orderByChild("name").equalTo(searchText).limitToFirst(5);
-            val query = database.orderByChild("name").startAt(searchText).endAt(searchText + "\uF8FF").limitToFirst(5)
-            query.addListenerForSingleValueEvent(valueEventListener);
             if(searchText == "") {
-               database.addListenerForSingleValueEvent(valueEventListener)
+                database.addListenerForSingleValueEvent(valueEventListener)
+            }
+            else {
+                val query =
+                    database.orderByChild("name").startAt(searchText).endAt(searchText + "\uF8FF")
+                        .limitToFirst(5)
+                query.addListenerForSingleValueEvent(valueEventListener);
             }
         }
 
