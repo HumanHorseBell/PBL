@@ -35,21 +35,23 @@ class DetailActivity : AppCompatActivity() {
 //        Toast.makeText(this, storageRef.storage.toString() , Toast.LENGTH_SHORT).show()
 
         // Read from the database
-        database.addValueEventListener(object : ValueEventListener {
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for (productData in dataSnapshot.children) {
                     // child 내에 있는 데이터만큼 반복
                     if(productData.key.equals(goodsNo)){
-                        textViewNo.setText(productData.key)
+                        //textViewNo.setText(productData.key)
+
+                        //textViewNo.setText(productData.key)
 
                         val imageUrl = productData.child("img").value.toString()
                         Glide.with(this@DetailActivity).load(imageUrl).into(imageViewGoods)
 
-                        textViewName.setText(productData.child("name").value.toString())
-                        textViewPrice.setText(productData.child("price").value.toString())
-                        textViewExp.setText(productData.child("exp").value.toString())
-                        textViewSort.setText(productData.child("sort").value.toString())
+                        textViewName.text = productData.child("name").value.toString() + " (" + productData.child("sort").value.toString() + " - " + productData.key + ")"
+                        textViewPrice.text = productData.child("price").value.toString() + "원"
+                        textViewExp.text = productData.child("exp").value.toString()
+                        //textViewSort.text = productData.child("sort").value.toString()
                         //이미지 넣기
                     }
                     val productkey = productData.key

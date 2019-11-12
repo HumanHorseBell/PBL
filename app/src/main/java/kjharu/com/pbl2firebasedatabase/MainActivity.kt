@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         var valueEventListener: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 adapter.clear()
+                arraylist.clear()
                 for (productData in dataSnapshot.children) {
                     val productkey = productData.key
                     val productName = productData.child("name").value.toString()
@@ -74,11 +75,14 @@ class MainActivity : AppCompatActivity() {
         searchbtn.setOnClickListener {
             val searchedittext = findViewById<EditText>(R.id.searchEdittext)
             searchText = searchedittext.text.toString()
-            //val query = database.orderByChild("name").equalTo(searchText).limitToFirst(5);
-            val query = database.orderByChild("name").startAt(searchText).endAt(searchText + "\uF8FF").limitToFirst(5)
-            query.addListenerForSingleValueEvent(valueEventListener);
             if(searchText == "") {
-               database.addListenerForSingleValueEvent(valueEventListener)
+                database.addListenerForSingleValueEvent(valueEventListener)
+            }
+            else {
+                val query =
+                    database.orderByChild("name").startAt(searchText).endAt(searchText + "\uF8FF")
+                        .limitToFirst(5)
+                query.addListenerForSingleValueEvent(valueEventListener);
             }
         }
 
@@ -109,7 +113,6 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        val inflater = menuInflater
         menuInflater.inflate(R.menu.mainmenu, menu)
         return true
     }
